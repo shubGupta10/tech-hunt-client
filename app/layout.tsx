@@ -4,6 +4,7 @@ import "./globals.css";
 import { JobProvider } from "@/context/JobContext";
 import Navbar from "@/components/Navbar";
 import { PostHogProvider } from '@/components/providers'
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,7 @@ export default function RootLayout({
           <PostHogProvider>
             {children}
           </PostHogProvider>
+          <Footer/>
         </JobProvider>
       </body>
     </html>
