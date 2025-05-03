@@ -1,10 +1,9 @@
 "use client"
 
-import Footer from '@/components/Footer';
 import { HeroHighlight } from '@/components/ui/hero-highlight';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { motion } from 'framer-motion';
-import { Briefcase, BriefcaseIcon, Clock, ClockIcon, CloudIcon, CodeIcon, DatabaseIcon, FilterIcon, GitPullRequestIcon, Globe, HomeIcon, LayersIcon, LayoutIcon, Quote, ServerIcon, TagIcon } from 'lucide-react';
+import {  BriefcaseIcon, ClockIcon, CloudIcon, CodeIcon, DatabaseIcon, FilterIcon,  HomeIcon, LayoutIcon, Quote, ServerIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { FC, useEffect, useState } from 'react';
 
@@ -30,7 +29,6 @@ export default function Home() {
       <FeatureSection />
       <TestimonialSection />
       <CTASection />
-      <Footer />
     </div>
   );
 }
