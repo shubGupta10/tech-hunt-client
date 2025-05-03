@@ -70,9 +70,9 @@ export default function FullStackJobBoard() {
     if (searchTerm !== "") {
       filtered = filtered.filter(
         (job) =>
-          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.description.toLowerCase().includes(searchTerm.toLowerCase()),
+          (job.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+          (job.companyName?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+          (job.description?.toLowerCase() || "").includes(searchTerm.toLowerCase()),
       )
     }
 
@@ -100,7 +100,7 @@ export default function FullStackJobBoard() {
     // Apply location filter
     if (filterLocation !== "all") {
       filtered = filtered.filter((job) => {
-        return job.location.toLowerCase().includes(filterLocation.toLowerCase())
+        return job.location?.toLowerCase().includes(filterLocation.toLowerCase()) || false
       })
     }
 
@@ -143,12 +143,14 @@ export default function FullStackJobBoard() {
     router.push(`/job-details`)
   }
 
-  // Get unique locations for filter
+  // Get unique locations for filter - FIX HERE
   const locations = [
     "all",
     ...new Set(
       jobs
         .map((job) => {
+          // Add null check for job.location
+          if (!job.location) return ""
           const parts = job.location.split(", ")
           return parts.length > 1 ? parts[parts.length - 1] : job.location
         })
@@ -308,7 +310,7 @@ export default function FullStackJobBoard() {
                       <TableCell className="hidden md:table-cell text-[#64748B]">
                         <div className="flex items-center gap-1.5">
                           <MapPin className="h-3.5 w-3.5 text-[#1C6DD0]" />
-                          <span className="text-sm">{job.location}</span>
+                          <span className="text-sm">{job.location || "No location specified"}</span>
                         </div>
                       </TableCell>
                       <TableCell className="hidden md:table-cell text-[#64748B]">
