@@ -93,6 +93,7 @@ const HeroSection: FC = () => {
 };
 
 
+
 const ImageSection: FC = () => {
   const [isInView, setIsInView] = useState(false);
 
@@ -117,35 +118,35 @@ const ImageSection: FC = () => {
   return (
     <div
       id="image-section"
-      className="w-full bg-gradient-to-b from-[#edf4f6] to-[#e5f0f5] py-24 px-6 md:px-8 lg:px-4 relative overflow-hidden min-h-[700px] flex flex-col justify-center"
+      className="w-full bg-gradient-to-b from-[#edf4f6] to-[#e5f0f5] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-4 relative overflow-hidden min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex flex-col justify-center"
     >
-      {/* Enhanced background lighting effects */}
-      <div className="absolute -left-20 top-0 h-96 w-96 bg-[#84D03E] opacity-15 blur-[100px] rounded-full"></div>
-      <div className="absolute -right-20 bottom-0 h-96 w-96 bg-[#1C6DD0] opacity-10 blur-[100px] rounded-full"></div>
-      <div className="absolute left-1/2 top-1/2 h-64 w-64 bg-[#8A2BE2] opacity-5 blur-[80px] rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+      {/* Responsive background lighting effects */}
+      <div className="absolute -left-10 sm:-left-20 top-0 h-64 sm:h-80 md:h-96 w-64 sm:w-80 md:w-96 bg-[#84D03E] opacity-15 blur-[50px] sm:blur-[75px] md:blur-[100px] rounded-full"></div>
+      <div className="absolute -right-10 sm:-right-20 bottom-0 h-64 sm:h-80 md:h-96 w-64 sm:w-80 md:w-96 bg-[#1C6DD0] opacity-10 blur-[50px] sm:blur-[75px] md:blur-[100px] rounded-full"></div>
+      <div className="absolute left-1/2 top-1/2 h-40 sm:h-48 md:h-56 lg:h-64 w-40 sm:w-48 md:w-56 lg:w-64 bg-[#8A2BE2] opacity-5 blur-[40px] sm:blur-[60px] md:blur-[80px] rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
 
-      {/* Animated particles for extra lighting effect */}
+      {/* Animated particles - made responsive */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 h-2 w-2 bg-[#84D03E] opacity-70 rounded-full animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/3 h-3 w-3 bg-[#1C6DD0] opacity-60 rounded-full animate-ping animation-delay-700"></div>
-        <div className="absolute bottom-1/3 left-2/3 h-2 w-2 bg-[#8A2BE2] opacity-60 rounded-full animate-ping animation-delay-1500"></div>
+        <div className="absolute top-1/4 left-1/4 h-1 w-1 sm:h-2 sm:w-2 bg-[#84D03E] opacity-70 rounded-full animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/3 h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-3 md:w-3 bg-[#1C6DD0] opacity-60 rounded-full animate-ping animation-delay-700"></div>
+        <div className="absolute bottom-1/3 left-2/3 h-1 w-1 sm:h-1.5 sm:w-1.5 md:h-2 md:w-2 bg-[#8A2BE2] opacity-60 rounded-full animate-ping animation-delay-1500"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto relative w-full">
-        {/* Simple heading above the image */}
-        <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#002C49] mb-3">
+      <div className="max-w-6xl mx-auto relative w-full px-4 sm:px-6 md:px-8 lg:px-4">
+        {/* Responsive heading above the image */}
+        <div className={`text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002C49] mb-2 sm:mb-3">
             Find <span className="text-[#1C6DD0]">Tech Jobs</span> That Matter
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-700 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto">
             Connecting developers with opportunities across India
           </p>
         </div>
 
-        {/* Enhanced image container with animations - now larger */}
+        {/* Responsive image container with animations */}
         <div
-          className={`rounded-2xl overflow-hidden shadow-2xl relative z-10 transition-all duration-700
-            hover:shadow-[0_25px_60px_rgba(8,112,184,0.15)] transform hover:-translate-y-2
+          className={`rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl relative z-10 transition-all duration-700
+            hover:shadow-[0_15px_30px_rgba(8,112,184,0.15)] sm:hover:shadow-[0_20px_40px_rgba(8,112,184,0.15)] md:hover:shadow-[0_25px_60px_rgba(8,112,184,0.15)] transform hover:-translate-y-1 sm:hover:-translate-y-2
             ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
           {/* Enhanced image overlay effects */}
@@ -158,8 +159,12 @@ const ImageSection: FC = () => {
           <img
             src="./landingImage.png"
             alt="TechHunt Platform"
-            className="w-full h-full object-cover relative z-20"
-            style={{ minHeight: "500px" }} // Making image taller
+            className="w-full h-auto object-cover relative z-20"
+            style={{ 
+              minHeight: "300px", 
+              maxHeight: "600px",
+              objectPosition: "center" 
+            }}
             loading="lazy"
           />
 

@@ -65,6 +65,23 @@ export default function JobDetailsPage() {
     return "Salary not specified"
   }
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Check out this job: ${selectedJob.title}`,
+          text: `${selectedJob.companyName} is hiring! Here's the job: ${selectedJob.title}.`,
+          url: window.location.href,
+        });
+        console.log(" Shared successfully");
+      } catch (error) {
+        console.error(" Error sharing", error);
+      }
+    } else {
+      alert("Sharing is not supported in your browser.");
+    }
+  };
+
   return (
     <div className="container mx-auto py-8 bg-[#F9FAFB] min-h-screen">
       <Button
@@ -77,128 +94,129 @@ export default function JobDetailsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-6">
-            <div className="bg-[#002C49] text-white p-6 rounded-tr-xl">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h1 className="text-2xl font-bold">{selectedJob.title}</h1>
-                  <div className="flex items-center mt-2 text-[#F1F5F9]">
-                    <Building className="h-4 w-4 mr-2" />
-                    {selectedJob.companyName}
-                  </div>
+          <div className="bg-[#002C49] text-white p-6 rounded-tr-xl">
+            <div className="flex items-start justify-between">
+              <div>
+                <h1 className="text-2xl font-bold">{selectedJob.title}</h1>
+                <div className="flex items-center mt-2 text-[#F1F5F9]">
+                  <Building className="h-4 w-4 mr-2" />
+                  {selectedJob.companyName}
                 </div>
-                {selectedJob.thumbnail ? (
-                  <div className="h-16 w-16 rounded-md overflow-hidden bg-white p-1">
-                    <img
-                      src={selectedJob.thumbnail || "/placeholder.svg?height=56&width=56"}
-                      alt={selectedJob.companyName}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                ) : (
-                  <div className="h-16 w-16 rounded-md bg-[#EAF4FF] flex items-center justify-center">
-                    <Building className="h-8 w-8 text-[#1C6DD0]" />
-                  </div>
-                )}
               </div>
+              {selectedJob.thumbnail ? (
+                <div className="h-16 w-16 rounded-md overflow-hidden bg-white p-1">
+                  <img
+                    src={selectedJob.thumbnail || "/placeholder.svg?height=56&width=56"}
+                    alt={selectedJob.companyName}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="h-16 w-16 rounded-md bg-[#EAF4FF] flex items-center justify-center">
+                  <Building className="h-8 w-8 text-[#1C6DD0]" />
+                </div>
+              )}
             </div>
+          </div>
 
-            <div className="bg-[#EAF4FF] px-6 py-4 flex flex-wrap gap-2">
+          <div className="bg-[#EAF4FF] px-6 py-4 flex flex-wrap gap-2">
+            <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
+              <MapPin className="h-3 w-3 mr-1 text-[#1C6DD0]" />
+              {selectedJob.location}
+            </Badge>
+            {selectedJob.metadata?.scheduleType && (
               <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
-                <MapPin className="h-3 w-3 mr-1 text-[#1C6DD0]" />
-                {selectedJob.location}
+                <Briefcase className="h-3 w-3 mr-1 text-[#1C6DD0]" />
+                {selectedJob.metadata.scheduleType}
               </Badge>
-              {selectedJob.metadata?.scheduleType && (
-                <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
-                  <Briefcase className="h-3 w-3 mr-1 text-[#1C6DD0]" />
-                  {selectedJob.metadata.scheduleType}
-                </Badge>
-              )}
-              {selectedJob.metadata?.workFromHome && (
-                <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">Remote</Badge>
-              )}
-              {getPostedTime() && (
-                <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
-                  <Clock className="h-3 w-3 mr-1 text-[#1C6DD0]" />
-                  {getPostedTime()}
-                </Badge>
-              )}
-              {getSalary() !== "Salary not specified" && (
-                <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
-                  <DollarSign className="h-3 w-3 mr-1 text-[#1C6DD0]" />
-                  {getSalary()}
-                </Badge>
-              )}
-            </div>
+            )}
+            {selectedJob.metadata?.workFromHome && (
+              <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">Remote</Badge>
+            )}
+            {getPostedTime() && (
+              <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
+                <Clock className="h-3 w-3 mr-1 text-[#1C6DD0]" />
+                {getPostedTime()}
+              </Badge>
+            )}
+            {getSalary() !== "Salary not specified" && (
+              <Badge className="bg-white text-[#1E293B] border-[#CBD5E1] hover:bg-[#F1F5F9]">
+                <DollarSign className="h-3 w-3 mr-1 text-[#1C6DD0]" />
+                {getSalary()}
+              </Badge>
+            )}
+          </div>
 
-            <CardContent className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-[#002C49]">Job Description</h2>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-[#CBD5E1] text-[#64748B] hover:bg-[#EAF4FF] hover:text-[#1C6DD0]"
-                  >
-                    <Share2 className="h-4 w-4 mr-1" /> Share
-                  </Button>
-                  <Button
+          <CardContent className="p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-[#002C49]">Job Description</h2>
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleShare}
+                  variant="outline"
+                  size="sm"
+                  className="border-[#CBD5E1] text-[#64748B] hover:bg-[#EAF4FF] hover:text-[#1C6DD0]"
+                >
+                  <Share2 className="h-4 w-4 mr-1" /> Share
+                </Button>
+                {/* <Button
                     variant="outline"
                     size="sm"
                     className="border-[#CBD5E1] text-[#64748B] hover:bg-[#EAF4FF] hover:text-[#1C6DD0]"
                   >
                     <Bookmark className="h-4 w-4 mr-1" /> Save
-                  </Button>
-                </div>
+                  </Button> */}
               </div>
+            </div>
 
-              <div className="prose max-w-none text-[#1E293B]">
-                {selectedJob.description.split("\n").map((paragraph, index) => (
-                  <p key={index} className="mb-4 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
+            <div className="prose max-w-none text-[#1E293B]">
+              {selectedJob.description.split("\n").map((paragraph, index) => (
+                <p key={index} className="mb-4 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
 
-              <div className="mt-8 pt-6 border-t border-[#CBD5E1] flex justify-between items-center">
-                <Button
-                  variant="outline"
-                  className="border-[#CBD5E1] text-[#1E293B] hover:bg-[#EAF4FF] hover:text-[#1C6DD0]"
-                  onClick={() => router.push("/")}
-                >
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Back to Jobs
+            <div className="mt-8 pt-6 border-t border-[#CBD5E1] flex justify-between items-center">
+              <Button
+                variant="outline"
+                className="border-[#CBD5E1] text-[#1E293B] hover:bg-[#EAF4FF] hover:text-[#1C6DD0]"
+                onClick={() => router.push("/")}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Jobs
+              </Button>
+              <a href={selectedJob.shareLink} target="_blank" rel="noopener noreferrer">
+                <Button className="bg-[#84D03E] hover:bg-[#84D03E]/90 text-white">
+                  Apply Now <ExternalLink className="ml-2 h-4 w-4" />
                 </Button>
-                <a href={selectedJob.shareLink} target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-[#84D03E] hover:bg-[#84D03E]/90 text-white">
-                    Apply Now <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
+              </a>
+            </div>
+          </CardContent>
         </div>
 
         <div className="space-y-6">
-            <div className="bg-[#002C49] text-white px-6 py-4 rounded-tl-2xl">
-              <CardTitle className="text-lg font-semibold">Quick Apply</CardTitle>
-            </div>
-            <CardContent className="p-6">
-              <a href={selectedJob.shareLink} target="_blank" rel="noopener noreferrer" className="w-full">
-                <Button className="w-full bg-[#84D03E] hover:bg-[#84D03E]/90 text-white">
-                  Apply on {selectedJob.via || "Company Website"} <ExternalLink className="ml-2 h-4 w-4" />
-                </Button>
-              </a>
+          <div className="bg-[#002C49] text-white px-6 py-4 rounded-tl-2xl">
+            <CardTitle className="text-lg font-semibold">Quick Apply</CardTitle>
+          </div>
+          <CardContent className="p-6">
+            <a href={selectedJob.shareLink} target="_blank" rel="noopener noreferrer" className="w-full">
+              <Button className="w-full bg-[#84D03E] hover:bg-[#84D03E]/90 text-white">
+                Apply on {selectedJob.via || "Company Website"} <ExternalLink className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
 
-              {getPostedTime() && (
-                <div className="mt-4 flex items-center text-[#64748B] text-sm">
-                  <Calendar className="h-4 w-4 mr-2 text-[#1C6DD0]" />
-                  Posted {getPostedTime()}
-                </div>
-              )}
-
-              <div className="mt-4 p-3 bg-[#EAF4FF] rounded-md text-sm text-[#1E293B] flex items-start">
-                <AlertCircle className="h-4 w-4 mr-2 text-[#1C6DD0] mt-0.5" />
-                <span>Apply soon! Jobs like this usually receive many applications.</span>
+            {getPostedTime() && (
+              <div className="mt-4 flex items-center text-[#64748B] text-sm">
+                <Calendar className="h-4 w-4 mr-2 text-[#1C6DD0]" />
+                Posted {getPostedTime()}
               </div>
-            </CardContent>
+            )}
+
+            <div className="mt-4 p-3 bg-[#EAF4FF] rounded-md text-sm text-[#1E293B] flex items-start">
+              <AlertCircle className="h-4 w-4 mr-2 text-[#1C6DD0] mt-0.5" />
+              <span>Apply soon! Jobs like this usually receive many applications.</span>
+            </div>
+          </CardContent>
 
           <Card className="border-[#CBD5E1] shadow-sm">
             <CardHeader className="pb-2">
