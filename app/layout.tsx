@@ -5,6 +5,7 @@ import { JobProvider } from "@/context/JobContext";
 import Navbar from "@/components/Navbar";
 import { PostHogProvider } from '@/components/providers'
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,6 +66,7 @@ export default function RootLayout({
       >
         <JobProvider>
           <Navbar />
+          <Analytics/>
           <PostHogProvider>
             {children}
           </PostHogProvider>
