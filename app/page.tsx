@@ -37,6 +37,7 @@ export default function Home() {
 
 
 const HeroSection: FC = () => {
+  const router = useRouter()
   const words = `Your dream job is waiting for you`
   return (
     <HeroHighlight>
@@ -79,6 +80,7 @@ const HeroSection: FC = () => {
 
             {/* Search button with enhanced hover effect */}
             <button
+            onClick={() => router.push("/select-your-preference")}
               className="bg-[#84D03E] hover:bg-opacity-90 text-[#002C49] font-semibold text-lg py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer"
             >
               Start Exploring
@@ -341,7 +343,8 @@ const TestimonialSection: FC = () => {
   );
 };
 
-const CTASection: React.FC = () => {
+const CTASection: FC = () => {
+  const router = useRouter();
   return (
     <section className="py-24 px-4 bg-[#02474f] text-white relative overflow-hidden">
       {/* Enhanced background decorations */}
@@ -358,10 +361,10 @@ const CTASection: React.FC = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
-          <button className="bg-[#87d140] hover:bg-opacity-90 text-[#002C49] font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <button onClick={() => router.push("/job-board/fullstack-job-board")} className="bg-[#87d140] hover:bg-opacity-90 text-[#002C49] font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg cursor-pointer">
             Start Your Job Search
           </button>
-          <button className="bg-transparent border-2 border-white hover:bg-white hover:text-[#002C49] font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300">
+          <button onClick={() => router.push("/select-your-preference")} className="bg-transparent border-2 border-white hover:bg-white hover:text-[#002C49] font-semibold py-4 px-8 rounded-full text-lg transition-all duration-300 cursor-pointer">
             Browse Categories
           </button>
         </div>

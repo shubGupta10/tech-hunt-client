@@ -14,8 +14,8 @@ const Footer: FC = () => {
           </div>
           
           <nav className="flex gap-8">
-            <a href="#" className="text-[#CBD5E1] hover:text-white transition-colors duration-200">Home</a>
-            <a href="#" className="text-[#CBD5E1] hover:text-white transition-colors duration-200">Jobs</a>
+            <a href="/" className="text-[#CBD5E1] hover:text-white transition-colors duration-200">Home</a>
+            <a href="/select-your-preference" className="text-[#CBD5E1] hover:text-white transition-colors duration-200">Jobs</a>
           </nav>
         </div>
         
